@@ -1,0 +1,27 @@
+{
+    "name": "mane-olawale/termii",
+    "description": "A simple Object Oriented PHP Client for Termii SMS API.",
+    "type": "library",
+    "license": "MIT",
+    "homepage": "https://github.com/mane-olawale/termii",
+    "support": {
+        "issues": "https://github.com/mane-olawale/termii/issues",
+        "source": "https://github.com/mane-olawale/termii"
+    },
+    "authors": [
+        {
+            "name": "Ilesanmi Olawale Adedotun",
+            "homepage": "https://twitter.com/mane_olawale",
+            "email": "horlwaley001@gmail.com"
+        }
+    ],
+	"require": {
+		"php": ">=7.1",
+        "guzzlehttp/guzzle": "~6|~7"
+	},
+    "autoload": {
+        "psr-4": {
+            "ManeOlawale\\Termii\\": "src/"
+        }
+    }
+}
