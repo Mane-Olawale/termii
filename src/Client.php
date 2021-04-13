@@ -94,6 +94,7 @@ class Client implements HttpClientInterface
             'sender' => \ManeOlawale\Termii\Api\Sender::class,
             'sms' => \ManeOlawale\Termii\Api\Sms::class,
             'token' => \ManeOlawale\Termii\Api\Token::class,
+            'insights' => \ManeOlawale\Termii\Api\Insights::class,
         ];
     }
     
