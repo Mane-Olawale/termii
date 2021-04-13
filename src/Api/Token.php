@@ -48,21 +48,21 @@ class Token extends AbstractApi
     {
         $array = $this->verify($pin_id, $pin);
 
-        return (isset($array['verified']) && $array['verified'] === true)? true : false;
+        return (isset($array['verified']) && $array['verified'] === true);
     }
 
     public function expired( string $pin_id, string $pin )
     {
         $array = $this->verify($pin_id, $pin);
 
-        return (isset($array['verified']) && $array['verified'] === 'Expired')? true : false;
+        return (isset($array['verified']) && $array['verified'] === 'Expired');
     }
 
     public function failed( string $pin_id, string $pin )
     {
         $array = $this->verify($pin_id, $pin);
 
-        return (!isset($array['verified']) && isset($array['pinId']))? true : false;
+        return (!isset($array['verified']) && isset($array['pinId']));
     }
 
     public function sendInAppToken( $phone_number, array $pin )
