@@ -1,7 +1,5 @@
 <?php
 
-namespace ManeOlawale\Termii\HttpClient;
-
 /*
  * This file is part of the Termii Client.
  *
@@ -10,6 +8,9 @@ namespace ManeOlawale\Termii\HttpClient;
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
+
+namespace ManeOlawale\Termii\HttpClient;
+
 interface HttpClientInterface
 {
     

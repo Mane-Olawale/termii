@@ -1,11 +1,5 @@
 <?php
 
-namespace ManeOlawale\Termii;
-
-use GuzzleHttp\Client as Guzzle;
-use ManeOlawale\Termii\HttpClient\HttpClientInterface;
-use ManeOlawale\Termii\HttpClient\SendHttpRequests;
-
 /*
  * This file is part of the Termii Client.
  *
@@ -14,6 +8,13 @@ use ManeOlawale\Termii\HttpClient\SendHttpRequests;
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
+
+namespace ManeOlawale\Termii;
+
+use GuzzleHttp\Client as Guzzle;
+use ManeOlawale\Termii\HttpClient\HttpClientInterface;
+use ManeOlawale\Termii\HttpClient\SendHttpRequests;
+
 class Client implements HttpClientInterface
 {
 
@@ -21,21 +22,33 @@ class Client implements HttpClientInterface
 
     public $url = 'https://termii.com/api/';
 
-    private $userAgent = 'Termii Library: mane-olawale/monnify';
+    protected $userAgent = 'Termii Library: mane-olawale/monnify';
 
-    private $key;
+    protected $key;
 
-    private $sender_id;
+    protected $sender_id;
 
-    private $channel;
+    protected $channel;
 
-    public function __construct(string $key, string $sender_id = null, string $channel = null )
+    protected $attempts;
+
+    protected $time_to_live;
+
+    protected $length;
+
+    protected $placeholder;
+
+    protected $type = 'plain';
+
+    protected $pin_type = 'NUMERIC';
+
+    protected $message_type = 'ALPHANUMERIC';
+
+    public function __construct(string $key, array $options = null )
     {
         $this->key = $key;
 
-        $this->sender_id = $sender_id;
-
-        $this->channel = $channel;
+        if (isset($options)) $this->fillOptions($options);
 
         $this->httpClient = new Guzzle([
             // Base URI is used with relative requests
@@ -43,6 +56,13 @@ class Client implements HttpClientInterface
             // You can set any number of default request options.
             'timeout'  => 10.0,
         ]);
+    }
+
+    public function fillOptions(array $options)
+    {
+        foreach ($options as $key => $value) {
+            if (is_string($key) && property_exists($this, $key)) $this->{$key} = $value;
+        }
     }
 
     public function api( string $tag )
@@ -88,12 +108,48 @@ class Client implements HttpClientInterface
         return $this->userAgent;
     }
 
+    public function getAttempts()
+    {
+        return $this->attempts;
+    }
+
+    public function getMessageType()
+    {
+        return $this->message_type;
+    }
+
+    public function getTimeToLive()
+    {
+        return $this->time_to_live;
+    }
+
+    public function getLength()
+    {
+        return $this->length;
+    }
+
+    public function getPlaceholder()
+    {
+        return $this->placeholder;
+    }
+
+    public function getPinType()
+    {
+        return $this->pin_type;
+    }
+
+    public function getType()
+    {
+        return $this->type;
+    }
+
     public function apiMap()
     {
         return [
             'sender' => \ManeOlawale\Termii\Api\Sender::class,
             'sms' => \ManeOlawale\Termii\Api\Sms::class,
             'token' => \ManeOlawale\Termii\Api\Token::class,
+            'insights' => \ManeOlawale\Termii\Api\Insights::class,
         ];
     }
     
