@@ -1,11 +1,5 @@
 <?php
 
-namespace ManeOlawale\Termii;
-
-use GuzzleHttp\Client as Guzzle;
-use ManeOlawale\Termii\HttpClient\HttpClientInterface;
-use ManeOlawale\Termii\HttpClient\SendHttpRequests;
-
 /*
  * This file is part of the Termii Client.
  *
@@ -14,6 +8,13 @@ use ManeOlawale\Termii\HttpClient\SendHttpRequests;
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
+
+namespace ManeOlawale\Termii;
+
+use GuzzleHttp\Client as Guzzle;
+use ManeOlawale\Termii\HttpClient\HttpClientInterface;
+use ManeOlawale\Termii\HttpClient\SendHttpRequests;
+
 class Client implements HttpClientInterface
 {
 
