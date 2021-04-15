@@ -21,7 +21,7 @@ composer require mane-olawale/termii
 ```
 
 
-You now have Termii installed in *vendor/mane-olawale/termii*
+You now have Termii Client installed in *vendor/mane-olawale/termii*
 
 And an handy autoload file to include in your project in *vendor/autoload.php*
 
@@ -36,9 +36,32 @@ require_once __DIR__ . '/vendor/autoload.php';
 
 use ManeOlawale\Termii\Client;
 
-$client = new Client('{api_key}', '{sender_id}', '{channel}');
+// Create a new Client instance
+$client = new Client('{api_key}');
+
+// Create a new Client instance and set options
+$client = new Client('{api_key}', [
+            'sender_id' => 'Olawale',
+            'channel' => 'generic',
+            "attempts" => 10,
+            "time_to_live" => 30,
+            "length" => 6,
+            "placeholder" => '{token}',
+            'pin_type' => 'ALPHANUMERIC',
+            'message_type' => 'ALPHANUMERIC',
+            'type' => 'plain',
+        ]);
 
 $client->api('sms')->send('2347041945964', 'Hello World!');
+
+// You can change any option later
+
+$client->fillOptions([
+            "attempts" => 5,
+            "time_to_live" => 20,
+            "length" => 4,
+            "placeholder" => '{pin}',
+        ]);
 
 ```
 
@@ -98,7 +121,10 @@ Uses [Switch - Messaging](http://developer.termii.com/docs/messaging/).
 
     use ManeOlawale\Termii\Client;
 
-    $client = new Client('{api_key}', '{sender_id}', '{channel}');
+    $client = new Client('{api_key}', [
+            'sender_id' => '{sender_id}',
+            'channel' => '{channel}',
+        ]);
 
     return $client->api('sms')->send('2347041945964', 'Testing');
 
@@ -112,7 +138,10 @@ Uses [Switch - Messaging](http://developer.termii.com/docs/messaging/).
 
     use ManeOlawale\Termii\Client;
 
-    $client = new Client('{api_key}', '{sender_id}', '{channel}');
+    $client = new Client('{api_key}', [
+            'sender_id' => '{sender_id}',
+            'channel' => '{channel}',
+        ]);
 
     return $client->api('sms')->send('2347041945964', 'Hello World', 'Olawale', 'generic');
 
@@ -177,8 +206,12 @@ Uses [Send Token](http://developer.termii.com/docs/send-token/).
 
     use ManeOlawale\Termii\Client;
 
-    $client = new Client('{api_key}', '{sender_id}', '{channel}');
+    $client = new Client('{api_key}', [
+            'sender_id' => '{sender_id}',
+            'channel' => '{channel}',
+        ]);
 
+    // You can choose to omit the pin options if you have set them when creating the client instance
     return $client->api('token')->sendToken('2347041945964', '{token} is your friendship verification token', [
         "attempts" => 10,
         "time_to_live" => 30,
@@ -197,7 +230,10 @@ Uses [Send Token](http://developer.termii.com/docs/send-token/).
 
     use ManeOlawale\Termii\Client;
 
-    $client = new Client('{api_key}', '{sender_id}', '{channel}');
+    $client = new Client('{api_key}', [
+            'sender_id' => '{sender_id}',
+            'channel' => '{channel}',
+        ]);
 
     return $client->api('token')->sendToken('2347041945964', '{token} is your friendship verification token', [
         "attempts" => 10,
