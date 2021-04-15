@@ -22,7 +22,7 @@ class Sms extends AbstractApi
             'to' => $to,
             'from' => $sender_id ?? $this->client->getSenderId(),
             'sms' => $text,
-            'type' => 'plain',
+            'type' => $this->client->getType(),
             'channel' => $channel ?? $this->client->getChannel(),
         ]);
 
