@@ -18,6 +18,13 @@ trait SendHttpRequests
 
     protected $httpClient;
 
+    /**
+     * Return the default header data
+     * 
+     * @since 1.0
+     * 
+     * @return array
+     */
     public function headers()
     {
         return [
@@ -27,6 +34,15 @@ trait SendHttpRequests
         ];
     }
 
+    /**
+     * Handle GET method
+     * 
+     * @since 1.0
+     * 
+     * @param string $route
+     * @param array $parameters
+     * @return \GuzzleHttp\Response
+     */
     public function get( string $route, array $parameters = [])
     {
         return $this->request('GET', $route, [
@@ -35,6 +51,15 @@ trait SendHttpRequests
         ]);
     }
 
+    /**
+     * Handle POST method
+     * 
+     * @since 1.0
+     * 
+     * @param string $route
+     * @param array $body
+     * @return \GuzzleHttp\Response
+     */
     public function post( string $route, array $body)
     {
         return $this->request('POST', $route, [
@@ -43,6 +68,16 @@ trait SendHttpRequests
         ]);
     }
 
+    /**
+     * Handle GET method
+     * 
+     * @since 1.0
+     * 
+     * @param string $method
+     * @param string $route
+     * @param array $data
+     * @return \GuzzleHttp\Response
+     */
     public function request(string $method, string $route, array $data)
     {
         try {
@@ -56,6 +91,13 @@ trait SendHttpRequests
         }
     }
 
+    /**
+     * Return the api key array data
+     * 
+     * @since 1.0
+     * 
+     * @return array
+     */
     public function keyParameter()
     {
         return [

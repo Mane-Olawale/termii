@@ -13,10 +13,16 @@ namespace ManeOlawale\Termii\Api;
 
 use ManeOlawale\Termii\Client;
 use Psr\Http\Message\ResponseInterface;
-
+/**
+ * @property $client The termii client intance
+ */
 class AbstractApi
 {
 
+    /**
+     * The termii client instance
+     * @var \ManeOlawale\Termii\Client
+     */
     protected $client;
 
     public function __construct( Client $client )
@@ -24,16 +30,42 @@ class AbstractApi
         $this->client = $client;
     }
 
+    /**
+     * Handle GET method
+     * 
+     * @since 1.0
+     * 
+     * @param string $route
+     * @param array $parameters
+     * @return \GuzzleHttp\Response
+     */
     public function get( string $route, array $parameters = [])
     {
         return $this->client->get($route, $parameters);
     }
 
+    /**
+     * Handle POST method
+     * 
+     * @since 1.0
+     * 
+     * @param string $route
+     * @param array $body
+     * @return \GuzzleHttp\Response
+     */
     public function post( string $route, array $body)
     {
         return $this->client->post($route, $body);
     }
 
+    /**
+     * Change a response instance to array
+     * 
+     * @since 1.0
+     * 
+     * @param ResponseInterface $response
+     * @return array
+     */
     public function responseArray( ResponseInterface $response)
     {
         $body = $response->getBody()->__toString();

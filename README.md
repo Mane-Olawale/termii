@@ -52,7 +52,7 @@ $client = new Client('{api_key}', [
             'type' => 'plain',
         ]);
 
-$client->api('sms')->send('2347041945964', 'Hello World!');
+$client->sms->send('2347041945964', 'Hello World!');
 
 // You can change any option later
 
@@ -82,7 +82,7 @@ use ManeOlawale\Termii\Client;
 
 $client = new Client('{api_key}');
 
-$client->api('sender')->list();
+$client->sender->list();
 
 ```
 > **Note:** We didn`t add the Sender id and channel becuase they are optional and they can always be passed later on the client object or the SMS API handler.
@@ -102,7 +102,7 @@ use ManeOlawale\Termii\Client;
 
 $client = new Client('{api_key}');
 
-$client->api('sender')->request('Olawale', 'Friendship based Notifications', 'Mane Olawale');
+$client->sender->request('Olawale', 'Friendship based Notifications', 'Mane Olawale');
 
 ```
 
@@ -126,7 +126,7 @@ Uses [Switch - Messaging](http://developer.termii.com/docs/messaging/).
             'channel' => '{channel}',
         ]);
 
-    return $client->api('sms')->send('2347041945964', 'Testing');
+    return $client->sms->send('2347041945964', 'Testing');
 
 ```
 **Custom Sender ID or Channel**
@@ -143,11 +143,11 @@ Uses [Switch - Messaging](http://developer.termii.com/docs/messaging/).
             'channel' => '{channel}',
         ]);
 
-    return $client->api('sms')->send('2347041945964', 'Hello World', 'Olawale', 'generic');
+    return $client->sms->send('2347041945964', 'Hello World', 'Olawale', 'generic');
 
     // OR probably omit sender id or channel
 
-    return $client->api('sms')->send('2347041945964', 'Hello World', null, 'generic');
+    return $client->sms->send('2347041945964', 'Hello World', null, 'generic');
 
 ```
 
@@ -165,7 +165,7 @@ Uses [Switch - Number](http://developer.termii.com/docs/number/).
 
     $client = new Client('{api_key}');
 
-    return $client->api('sms')->number('2347041945964', 'Hello World');
+    return $client->sms->number('2347041945964', 'Hello World');
 
 ```
 
@@ -183,7 +183,7 @@ Uses [Switch - Template](http://developer.termii.com/docs/templates/).
 
     $client = new Client('{api_key}');
 
-    return $client->api('sms')->template('2347041945964', '{template_id}', [
+    return $client->sms->template('2347041945964', '{template_id}', [
             'product_name' => 'Termii',
             'otp' => '120435',
             'expiry_time' => '10 minutes'
@@ -212,7 +212,7 @@ Uses [Send Token](http://developer.termii.com/docs/send-token/).
         ]);
 
     // You can choose to omit the pin options if you have set them when creating the client instance
-    return $client->api('token')->sendToken('2347041945964', '{token} is your friendship verification token', [
+    return $client->token->sendToken('2347041945964', '{token} is your friendship verification token', [
         "attempts" => 10,
         "time_to_live" => 30,
         "length" => 6,
@@ -235,7 +235,7 @@ Uses [Send Token](http://developer.termii.com/docs/send-token/).
             'channel' => '{channel}',
         ]);
 
-    return $client->api('token')->sendToken('2347041945964', '{token} is your friendship verification token', [
+    return $client->token->sendToken('2347041945964', '{token} is your friendship verification token', [
         "attempts" => 10,
         "time_to_live" => 30,
         "length" => 6,
@@ -245,7 +245,7 @@ Uses [Send Token](http://developer.termii.com/docs/send-token/).
 
     // OR probably omit sender id or channel
 
-    return $client->api('token')->sendToken('2347041945964', '{token} is your friendship verification token', [
+    return $client->token->sendToken('2347041945964', '{token} is your friendship verification token', [
         "attempts" => 10,
         "time_to_live" => 30,
         "length" => 6,
@@ -269,7 +269,7 @@ Uses [Verify Token](http://developer.termii.com/docs/verify-token/).
 
     $client = new Client('{api_key}');
 
-    return $client->api('token')->verify('a2d671d7-e4fd-41d5-9b13-30c192309306', '123456');
+    return $client->token->verify('a2d671d7-e4fd-41d5-9b13-30c192309306', '123456');
 
 ```
 **For men and women of few words**
@@ -284,13 +284,13 @@ Uses [Verify Token](http://developer.termii.com/docs/verify-token/).
     $client = new Client('{api_key}');
 
     // Returns True if token is verified else returns false
-    return $client->api('token')->verified('a2d671d7-e4fd-41d5-9b13-30c192309306', '123456');
+    return $client->token->verified('a2d671d7-e4fd-41d5-9b13-30c192309306', '123456');
 
     // Returns True if token fails to verify else returns false
-    return $client->api('token')->failed('a2d671d7-e4fd-41d5-9b13-30c192309306', '123456');
+    return $client->token->failed('a2d671d7-e4fd-41d5-9b13-30c192309306', '123456');
 
     // Returns True if token exists but has expired else returns false
-    return $client->api('token')->expired('a2d671d7-e4fd-41d5-9b13-30c192309306', '123456');
+    return $client->token->expired('a2d671d7-e4fd-41d5-9b13-30c192309306', '123456');
 
 ```
 
@@ -309,7 +309,7 @@ Uses [Send In App Token](http://developer.termii.com/docs/in-app-token/).
 
     $client = new Client('{api_key}');
 
-    return $client->api('token')->sendInAppToken('2347041945964', [
+    return $client->token->sendInAppToken('2347041945964', [
         "attempts" => 10,
         "time_to_live" => 30,
         "length" => 6,
@@ -334,7 +334,7 @@ Uses [Balance](http://developer.termii.com/docs/balance/).
 
     $client = new Client('{api_key}');
 
-    return $client->api('insights')->balance();
+    return $client->insights->balance();
 
 ```
 
@@ -353,12 +353,12 @@ Uses [Inbox](http://developer.termii.com/docs/history/).
 
     $client = new Client('{api_key}');
 
-    return $client->api('insights')->inbox();
+    return $client->insights->inbox();
 
     /**
      * Get only the data of a specific message by passing its message_id
     */
-    return $client->api('insights')->inbox('43224343447041945964');
+    return $client->insights->inbox('43224343447041945964');
 
 ```
 
@@ -376,7 +376,7 @@ Uses [Search](http://developer.termii.com/docs/search/).
 
     $client = new Client('{api_key}');
 
-    return $client->api('insights')->search('2347041945964');
+    return $client->insights->search('2347041945964');
 
 ```
 > The search Api is used majorly for checking if a number is DND active, so there are two helper functions to ease the check
@@ -391,11 +391,11 @@ Uses [Search](http://developer.termii.com/docs/search/).
 
     $client = new Client('{api_key}');
 
-    return $client->api('insights')->isDnd('2347041945964');
+    return $client->insights->isDnd('2347041945964');
 
     // OR
 
-    return $client->api('insights')->isNotDnd('2347041945964');
+    return $client->insights->isNotDnd('2347041945964');
 
 ```
 
@@ -414,6 +414,6 @@ Uses [Status](http://developer.termii.com/docs/status/).
 
     $client = new Client('{api_key}');
 
-    return $client->api('insights')->number('2347041945964');
+    return $client->insights->number('2347041945964');
 
 ```
