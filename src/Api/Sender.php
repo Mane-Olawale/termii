@@ -14,6 +14,13 @@ namespace ManeOlawale\Termii\Api;
 class Sender extends AbstractApi
 {
 
+    /**
+     * Get list of sender id
+     * 
+     * @since 1.0
+     * 
+     * @return array
+     */
     public function list()
     {
         $response = $this->get('sender-id');
@@ -21,6 +28,16 @@ class Sender extends AbstractApi
         return $this->responseArray($response);
     }
 
+    /**
+     * Request a sender id
+     * 
+     * @since 1.0
+     * 
+     * @param string $sender_id
+     * @param string $usecase
+     * @param string $company
+     * @return array
+     */
     public function request(string $sender_id, string $usecase, string $company)
     {
         $response = $this->post('sender-id/request', [
