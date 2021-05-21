@@ -35,12 +35,11 @@ class Token extends AbstractApi
         $response = $this->post('sms/otp/send', [
             'to' => $to,
             'message_text' => $text,
-            'message_type' => $message_type ?? $this->client->getMessageType(),
+            'message_type' => $message_type ?? $this->client->getPinType(),
             'pin_attempts' => $pin['attempts'] ?? $this->client->getAttempts(),
             'pin_time_to_live' => $pin['time_to_live'] ?? $this->client->getTimeToLive(),
             'pin_length' => $pin['length'] ?? $this->client->getLength(),
             'pin_placeholder' => $pin['placeholder'] ?? $this->client->getPlaceholder(),
-            'pin_type' => $pin['type'] ?? $this->client->getPinType(),
             'from' => $from ?? $this->client->getSenderId(),
             'channel' => $channel ?? $this->client->getChannel(),
         ]);
