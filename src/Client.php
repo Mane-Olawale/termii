@@ -119,6 +119,14 @@ class Client implements HttpClientInterface
      */
     protected $message_type = 'ALPHANUMERIC';
 
+    /**
+     * Array of instantiated Api handlers
+     * @var string
+     */
+    protected $apis = [
+        //
+    ];
+
     public function __construct(string $key, array $options = null )
     {
         $this->key = $key;
@@ -170,9 +178,10 @@ class Client implements HttpClientInterface
      */
     public function api( string $tag )
     {
+        if (isset($this->apis[$tag])) return $this->apis[$tag];
         $class = $this->getEndpointHandler($tag);
 
-        return new $class($this);
+        return $this->apis[$tag] = new $class($this);
     }
 
     /**
