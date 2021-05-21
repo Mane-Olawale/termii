@@ -57,7 +57,7 @@ class Client implements HttpClientInterface
      * User agent for the HTTP client
      * @var string
      */
-    protected $userAgent = 'Termii Library: mane-olawale/monnify';
+    protected $userAgent = 'Termii Library: mane-olawale/termii';
 
     /**
      * Secret Key for Termii api
