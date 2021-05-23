@@ -227,6 +227,18 @@ class Client implements HttpClientInterface
     }
 
     /**
+     * Get the http client
+     * 
+     * @since 1.0
+     * 
+     * @return string
+     */
+    public function getHttpClient()
+    {
+        return $this->httpClient;
+    }
+
+    /**
      * Get the default sender ID
      * 
      * @since 1.0
