@@ -2,7 +2,7 @@
 
 A simple Object Oriented PHP Client for Termii SMS API.
 
-Uses [Termii API](http://developer.termii.com/docs/home.html).
+Uses [Termii API](http://developer.termii.com/).
 
 
 ## Requirements
@@ -70,7 +70,7 @@ $client->fillOptions([
 
 ### Getting Sender ID list
 
-Uses [Sender ID](http://developer.termii.com/docs/senderid/#sender-id).
+Uses [Sender ID](https://developer.termii.com/sender-id).
 
 ```php
 <?php
@@ -90,7 +90,7 @@ $client->sender->list();
 
 ### Request Sender ID
 
-Uses [Request Sender ID](http://developer.termii.com/docs/senderid/#request-sender-id).
+Uses [Request Sender ID](https://developer.termii.com/sender-id#request-sender-id).
 
 ```php
 <?php
@@ -111,7 +111,7 @@ $client->sender->request('Olawale', 'Friendship based Notifications', 'Mane Olaw
 
 ### Send Message
 
-Uses [Switch - Messaging](http://developer.termii.com/docs/messaging/).
+Uses [Switch - Messaging](http://developer.termii.com/messaging/).
 
 ```php
 <?php
@@ -153,7 +153,7 @@ Uses [Switch - Messaging](http://developer.termii.com/docs/messaging/).
 
 ### Send Number
 
-Uses [Switch - Number](http://developer.termii.com/docs/number/).
+Uses [Switch - Number](http://developer.termii.com/number/).
 
 ```php
 <?php
@@ -171,7 +171,7 @@ Uses [Switch - Number](http://developer.termii.com/docs/number/).
 
 ### Template
 
-Uses [Switch - Template](http://developer.termii.com/docs/templates/).
+Uses [Switch - Template](http://developer.termii.com/templates/).
 
 ```php
 <?php
@@ -196,7 +196,7 @@ Uses [Switch - Template](http://developer.termii.com/docs/templates/).
 
 ### Send Token
 
-Uses [Send Token](http://developer.termii.com/docs/send-token/).
+Uses [Send Token](http://developer.termii.com/send-token/).
 
 ```php
 <?php
@@ -257,7 +257,7 @@ Uses [Send Token](http://developer.termii.com/docs/send-token/).
 
 ### Verify Token
 
-Uses [Verify Token](http://developer.termii.com/docs/verify-token/).
+Uses [Verify Token](http://developer.termii.com/verify-token/).
 
 ```php
 <?php
@@ -297,7 +297,7 @@ Uses [Verify Token](http://developer.termii.com/docs/verify-token/).
 
 ### Send In App Token
 
-Uses [Send In App Token](http://developer.termii.com/docs/in-app-token/).
+Uses [Send In App Token](http://developer.termii.com/in-app-token/).
 
 ```php
 <?php
@@ -322,7 +322,7 @@ Uses [Send In App Token](http://developer.termii.com/docs/in-app-token/).
 
 ### Balance
 
-Uses [Balance](http://developer.termii.com/docs/balance/).
+Uses [Balance](http://developer.termii.com/balance/).
 
 ```php
 <?php
@@ -341,7 +341,7 @@ Uses [Balance](http://developer.termii.com/docs/balance/).
 
 ### Inbox
 
-Uses [Inbox](http://developer.termii.com/docs/history/).
+Uses [Inbox](http://developer.termii.com/history/).
 
 ```php
 <?php
@@ -364,7 +364,7 @@ Uses [Inbox](http://developer.termii.com/docs/history/).
 
 ### Search
 
-Uses [Search](http://developer.termii.com/docs/search/).
+Uses [Search](http://developer.termii.com/search/).
 
 ```php
 <?php
@@ -402,7 +402,7 @@ Uses [Search](http://developer.termii.com/docs/search/).
 
 ### Status
 
-Uses [Status](http://developer.termii.com/docs/status/).
+Uses [Status](http://developer.termii.com/status/).
 
 ```php
 <?php
