@@ -18,8 +18,6 @@ jobs:
         dependency-version:
           # - prefer-lowest
           - prefer-stable
-        exclude:
-          - {php: "8.0"}
 
     name: PHP ${{ matrix.php }} - ${{ matrix.dependency-version }} tests
     steps:
