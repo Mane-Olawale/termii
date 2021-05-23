@@ -57,7 +57,7 @@ class Client implements HttpClientInterface
      * User agent for the HTTP client
      * @var string
      */
-    protected $userAgent = 'Termii Library: mane-olawale/monnify';
+    protected $userAgent = 'Termii Library: mane-olawale/termii';
 
     /**
      * Secret Key for Termii api
@@ -119,6 +119,14 @@ class Client implements HttpClientInterface
      */
     protected $message_type = 'ALPHANUMERIC';
 
+    /**
+     * Array of instantiated Api handlers
+     * @var string
+     */
+    protected $apis = [
+        //
+    ];
+
     public function __construct(string $key, array $options = null )
     {
         $this->key = $key;
@@ -170,9 +178,10 @@ class Client implements HttpClientInterface
      */
     public function api( string $tag )
     {
+        if (isset($this->apis[$tag])) return $this->apis[$tag];
         $class = $this->getEndpointHandler($tag);
 
-        return new $class($this);
+        return $this->apis[$tag] = new $class($this);
     }
 
     /**
@@ -215,6 +224,18 @@ class Client implements HttpClientInterface
     public function getKey()
     {
         return $this->key;
+    }
+
+    /**
+     * Get the http client
+     * 
+     * @since 1.0
+     * 
+     * @return string
+     */
+    public function getHttpClient()
+    {
+        return $this->httpClient;
     }
 
     /**
