@@ -16,11 +16,11 @@
         }
     ],
 	"require": {
-		"php": ">=7.1",
+		"php": ">=7.2",
         "guzzlehttp/guzzle": "~6|~7"
 	},
     "scripts": {
-        "tests": "vendor/bin/phpunit"
+        "tests": "vendor/bin/phpunit --verbose"
     },
     "autoload": {
         "psr-4": {
