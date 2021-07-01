@@ -7,7 +7,6 @@
  *
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
- * 
  */
 
 namespace ManeOlawale\Termii;
@@ -17,14 +16,14 @@ use ManeOlawale\Termii\HttpClient\HttpClientInterface;
 use ManeOlawale\Termii\HttpClient\SendHttpRequests;
 
 /**
- * 
+ *
  * @since 1.0
- * 
+ *
  * @property-read \ManeOlawale\Termii\Api\Sender $sender
  * @property-read \ManeOlawale\Termii\Api\Sms $sms
  * @property-read \ManeOlawale\Termii\Api\Token $token
  * @property-read \ManeOlawale\Termii\Api\Insights $insights
- * 
+ *
  * @method \ManeOlawale\Termii\Api\AbstractApi api( string $tag )
  * @method string getEndpointHandler( string $tag)
  * @method Client fillOptions(array $options)
@@ -44,7 +43,6 @@ use ManeOlawale\Termii\HttpClient\SendHttpRequests;
  */
 class Client implements HttpClientInterface
 {
-
     use SendHttpRequests;
 
     /**
@@ -127,11 +125,13 @@ class Client implements HttpClientInterface
         //
     ];
 
-    public function __construct(string $key, array $options = null )
+    public function __construct(string $key, array $options = null)
     {
         $this->key = $key;
 
-        if (isset($options)) $this->fillOptions($options);
+        if (isset($options)) {
+            $this->fillOptions($options);
+        }
 
         $this->httpClient = new Guzzle([
             // Base URI is used with relative requests
@@ -143,25 +143,27 @@ class Client implements HttpClientInterface
 
     /**
      * Mass fill the client option
-     * 
+     *
      * @since 1.0
-     * 
+     *
      * @param array $options Associate Array contating the options
      * @return static $this Return the client object for method chaining
      */
     public function fillOptions(array $options)
     {
         foreach ($options as $key => $value) {
-            if (is_string($key) && property_exists($this, $key)) $this->{$key} = $value;
+            if (is_string($key) && property_exists($this, $key)) {
+                $this->{$key} = $value;
+            }
         }
         return $this;
     }
 
     /**
      * Dynamic property to get the api handlers
-     * 
+     *
      * @since 1.0
-     * 
+     *
      * @param string $tag Endpoint Tag Name
      */
     public function __get(string $tag)
@@ -171,27 +173,29 @@ class Client implements HttpClientInterface
 
     /**
      * Get the endpoint handler through tag name
-     * 
+     *
      * @since 1.0
-     * 
+     *
      * @param string $tag Endpoint Tag Name
      */
-    public function api( string $tag )
+    public function api(string $tag)
     {
-        if (isset($this->apis[$tag])) return $this->apis[$tag];
-        $class = $this->getEndpointHandler($tag);
+        if (isset($this->apis[$tag])) {
+            return $this->apis[$tag];
+        }
 
+        $class = $this->getEndpointHandler($tag);
         return $this->apis[$tag] = new $class($this);
     }
 
     /**
      * Get the endpoint handler class name through tag name
-     * 
+     *
      * @since 1.0
-     * 
+     *
      * @param string $tag Endpoint Tag Name
      */
-    protected function getEndpointHandler( string $tag)
+    protected function getEndpointHandler(string $tag)
     {
         $map = $this->apiMap();
 
@@ -204,9 +208,9 @@ class Client implements HttpClientInterface
 
     /**
      * Get the base URI of the client
-     * 
+     *
      * @since 1.0
-     * 
+     *
      * @return string
      */
     public function baseUri()
@@ -216,9 +220,9 @@ class Client implements HttpClientInterface
 
     /**
      * Get the Secret key of the client
-     * 
+     *
      * @since 1.0
-     * 
+     *
      * @return string
      */
     public function getKey()
@@ -228,9 +232,9 @@ class Client implements HttpClientInterface
 
     /**
      * Get the http client
-     * 
+     *
      * @since 1.0
-     * 
+     *
      * @return string
      */
     public function getHttpClient()
@@ -240,9 +244,9 @@ class Client implements HttpClientInterface
 
     /**
      * Get the default sender ID
-     * 
+     *
      * @since 1.0
-     * 
+     *
      * @return string
      */
     public function getSenderId()
@@ -252,9 +256,9 @@ class Client implements HttpClientInterface
 
     /**
      * Get the default channel
-     * 
+     *
      * @since 1.0
-     * 
+     *
      * @return string
      */
     public function getChannel()
@@ -265,7 +269,7 @@ class Client implements HttpClientInterface
     /**
      * Get the user agent for the http client
      * @since 1.0
-     * 
+     *
      * @return string
      */
     public function getUserAgent()
@@ -275,9 +279,9 @@ class Client implements HttpClientInterface
 
     /**
      * Get the number of attempts for OTP
-     * 
+     *
      * @since 1.0
-     * 
+     *
      * @return string
      */
     public function getAttempts()
@@ -287,9 +291,9 @@ class Client implements HttpClientInterface
 
     /**
      * Get the default message type
-     * 
+     *
      * @since 1.0
-     * 
+     *
      * @return string
      */
     public function getMessageType()
@@ -299,9 +303,9 @@ class Client implements HttpClientInterface
 
     /**
      * Get the duration for OTP
-     * 
+     *
      * @since 1.0
-     * 
+     *
      * @return string
      */
     public function getTimeToLive()
@@ -311,9 +315,9 @@ class Client implements HttpClientInterface
 
     /**
      * Get the default length of out going OTP
-     * 
+     *
      * @since 1.0
-     * 
+     *
      * @return string
      */
     public function getLength()
@@ -323,9 +327,9 @@ class Client implements HttpClientInterface
 
     /**
      * Get the placeholder for OTP string
-     * 
+     *
      * @since 1.0
-     * 
+     *
      * @return string
      */
     public function getPlaceholder()
@@ -335,9 +339,9 @@ class Client implements HttpClientInterface
 
     /**
      * Get the default pin type for OTP
-     * 
+     *
      * @since 1.0
-     * 
+     *
      * @return string
      */
     public function getPinType()
@@ -347,9 +351,9 @@ class Client implements HttpClientInterface
 
     /**
      * Get default type
-     * 
+     *
      * @since 1.0
-     * 
+     *
      * @return string
      */
     public function getType()
@@ -359,9 +363,9 @@ class Client implements HttpClientInterface
 
     /**
      * Get the endpoint handler tag map
-     * 
+     *
      * @since 1.0
-     * 
+     *
      * @return string
      */
     public function apiMap()
@@ -373,5 +377,4 @@ class Client implements HttpClientInterface
             'insights' => \ManeOlawale\Termii\Api\Insights::class,
         ];
     }
-    
 }

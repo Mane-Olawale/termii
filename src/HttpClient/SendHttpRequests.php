@@ -12,6 +12,7 @@
 namespace ManeOlawale\Termii\HttpClient;
 
 use GuzzleHttp\Exception\BadResponseException;
+use Psr\Http\Message\ResponseInterface;
 
 trait SendHttpRequests
 {
@@ -20,9 +21,9 @@ trait SendHttpRequests
 
     /**
      * Return the default header data
-     * 
+     *
      * @since 1.0
-     * 
+     *
      * @return array
      */
     public function headers()
@@ -36,14 +37,14 @@ trait SendHttpRequests
 
     /**
      * Handle GET method
-     * 
+     *
      * @since 1.0
-     * 
+     *
      * @param string $route
      * @param array $parameters
-     * @return \GuzzleHttp\Response
+     * @return \Psr\Http\Message\ResponseInterface
      */
-    public function get( string $route, array $parameters = [])
+    public function get(string $route, array $parameters = []): ResponseInterface
     {
         return $this->request('GET', $route, [
             'headers' => $this->headers(),
@@ -53,14 +54,14 @@ trait SendHttpRequests
 
     /**
      * Handle POST method
-     * 
+     *
      * @since 1.0
-     * 
+     *
      * @param string $route
      * @param array $body
-     * @return \GuzzleHttp\Response
+     * @return \Psr\Http\Message\ResponseInterface
      */
-    public function post( string $route, array $body)
+    public function post(string $route, array $body): ResponseInterface
     {
         return $this->request('POST', $route, [
             'headers' => $this->headers(),
@@ -70,22 +71,22 @@ trait SendHttpRequests
 
     /**
      * Handle GET method
-     * 
+     *
      * @since 1.0
-     * 
+     *
      * @param string $method
      * @param string $route
      * @param array $data
-     * @return \GuzzleHttp\Response
+     * @return \Psr\Http\Message\ResponseInterface
      */
-    public function request(string $method, string $route, array $data)
+    public function request(string $method, string $route, array $data): ResponseInterface
     {
         try {
-            return $this->httpClient->request( $method, $route, $data);
-        } catch ( BadResponseException $th) {
+            return $this->httpClient->request($method, $route, $data);
+        } catch (BadResponseException $th) {
             if ($th->hasResponse()) {
                 return $th->getResponse();
-            }else{
+            } else {
                 throw $th;
             }
         }
@@ -93,9 +94,9 @@ trait SendHttpRequests
 
     /**
      * Return the api key array data
-     * 
+     *
      * @since 1.0
-     * 
+     *
      * @return array
      */
     public function keyParameter()
@@ -104,5 +105,4 @@ trait SendHttpRequests
             'api_key' => $this->getKey(),
         ];
     }
-    
 }

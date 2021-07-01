@@ -11,29 +11,29 @@
 
 namespace ManeOlawale\Termii\HttpClient;
 
+use Psr\Http\Message\ResponseInterface;
+
 interface HttpClientInterface
 {
-    
     /**
      * Handle GET method
-     * 
+     *
      * @since 1.0
-     * 
+     *
      * @param string $route
      * @param array $parameters
-     * @return \GuzzleHttp\Response
+     * @return \Psr\Http\Message\ResponseInterface
      */
-    public function get(string $route, array $parameters);
-    
+    public function get(string $route, array $parameters): ResponseInterface;
+
     /**
      * Handle POST method
-     * 
+     *
      * @since 1.0
-     * 
+     *
      * @param string $route
      * @param array $body
-     * @return \GuzzleHttp\Response
+     * @return \Psr\Http\Message\ResponseInterface
      */
-    public function post(string $route, array $body);
-
+    public function post(string $route, array $body): ResponseInterface;
 }

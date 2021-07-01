@@ -16,23 +16,22 @@ class Sender extends AbstractApi
 
     /**
      * Get list of sender id
-     * 
+     *
      * @since 1.0
-     * 
+     *
      * @return array
      */
     public function list()
     {
         $response = $this->get('sender-id');
-
         return $this->responseArray($response);
     }
 
     /**
      * Request a sender id
-     * 
+     *
      * @since 1.0
-     * 
+     *
      * @param string $sender_id
      * @param string $usecase
      * @param string $company
@@ -48,5 +47,4 @@ class Sender extends AbstractApi
 
         return $this->responseArray($response);
     }
-
 }

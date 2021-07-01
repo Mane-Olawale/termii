@@ -13,29 +13,27 @@ namespace ManeOlawale\Termii\Api;
 
 class Insights extends AbstractApi
 {
-
     /**
      * Get the balance
-     * 
+     *
      * @since 1.0
-     * 
+     *
      * @return array
      */
     public function balance()
     {
         $response = $this->get('get-balance');
-
         return $this->responseArray($response);
     }
 
     /**
      * Search the phone number status in the DND database
-     * 
+     *
      * @since 1.0
-     * 
+     *
      * @return array
      */
-    public function search( string $phone_number )
+    public function search(string $phone_number)
     {
         $response = $this->get('check/dnd', [
             'phone_number' => $phone_number,
@@ -46,42 +44,41 @@ class Insights extends AbstractApi
 
     /**
      * Verify if phone number is DND active
-     * 
+     *
      * @since 1.0
-     * 
+     *
      * @param string $phone_number
      * @return boolean
      */
-    public function isDnd( string $phone_number )
+    public function isDnd(string $phone_number)
     {
         $response = $this->search($phone_number);
-
         return (isset($response['dnd_active']) && $response['dnd_active'] !== false);
     }
 
     /**
      * Verify if phone number is not DND active
-     * 
+     *
      * @since 1.0
-     * 
+     *
      * @param string $phone_number
      * @return boolean
      */
-    public function isNotDnd( string $phone_number )
+    public function isNotDnd(string $phone_number)
     {
         return !$this->isDnd($phone_number);
     }
 
     /**
      * Get the details of a number
-     * 
+     *
      * @since 1.0
-     * 
+     *
      * @param string $phone_number
      * @param string $country
      * @return array
      */
-    public function number( string $phone_number, string $country = 'NG' )
+    public function number(string $phone_number, string $country = 'NG')
     {
         $response = $this->get('insight/number/query', [
             'phone_number' => $phone_number,
@@ -93,19 +90,18 @@ class Insights extends AbstractApi
 
     /**
      * Fetch inbox history,
-     * 
+     *
      * @since 1.0
-     * 
+     *
      * @param string|null $id
      * @return array
      */
     public function inbox(string $id = null)
     {
-        $response = $this->get('sms/inbox', $id? [
+        $response = $this->get('sms/inbox', $id ? [
             'message_id' => $id,
         ] : []);
 
         return $this->responseArray($response);
     }
-
 }
