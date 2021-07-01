@@ -14,7 +14,7 @@ class ClientTest extends TestCase
     /**
      * Test for handler caching in the client oject
      */
-    public function test_handler_caching()
+    public function testHandlerCaching()
     {
         $client = new Client('rtyuikjbvdrtyujhbvdrtyujnhbvcftyhbvcdrtg');
 
@@ -32,7 +32,7 @@ class ClientTest extends TestCase
     /**
      * Test for handler caching in the client oject
      */
-    public function test_handler_class()
+    public function testHandlerClass()
     {
         $client = new Client('rtyuikjbvdrtyujhbvdrtyujnhbvcftyhbvcdrtg');
 
@@ -45,7 +45,7 @@ class ClientTest extends TestCase
     /**
      * Test for handler caching in the client oject
      */
-    public function test_mass_fill()
+    public function testMassFill()
     {
         $client = new Client('rtyuikjbvdrtyujhbvdrtyujnhbvcftyhbvcdrtg');
 
@@ -59,7 +59,5 @@ class ClientTest extends TestCase
         ]);
 
         $this->assertTrue($client->getHttpClient() instanceof Guzzle);
-
     }
-    
 }
