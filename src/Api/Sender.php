@@ -13,7 +13,6 @@ namespace ManeOlawale\Termii\Api;
 
 class Sender extends AbstractApi
 {
-
     /**
      * Get list of sender id
      *

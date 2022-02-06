@@ -16,7 +16,6 @@ use Psr\Http\Message\ResponseInterface;
 
 trait SendHttpRequests
 {
-
     protected $httpClient;
 
     /**

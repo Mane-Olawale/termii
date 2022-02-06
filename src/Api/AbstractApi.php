@@ -19,7 +19,6 @@ use Psr\Http\Message\ResponseInterface;
  */
 class AbstractApi
 {
-
     /**
      * The termii client instance
      *

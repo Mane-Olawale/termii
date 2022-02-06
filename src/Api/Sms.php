@@ -13,7 +13,6 @@ namespace ManeOlawale\Termii\Api;
 
 class Sms extends AbstractApi
 {
-
     /**
      * Send message to a number or array of numbers
      *
