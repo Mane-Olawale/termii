@@ -135,7 +135,7 @@ class Client implements HttpClientInterface
             $this->fillOptions($options);
         }
 
-        $this->httpManager = $httpManager ?? new GuzzleManagerInterface(new Guzzle([
+        $this->httpManager = $httpManager ?? new GuzzleManagerInterface($this, new Guzzle([
             // Base URI is used with relative requests
             'base_uri' => $this->baseUri(),
             // You can set any number of default request options.

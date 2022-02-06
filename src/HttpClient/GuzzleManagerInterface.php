@@ -11,11 +11,22 @@
 
 namespace ManeOlawale\Termii\HttpClient;
 
-use GuzzleHttp\Client;
+use GuzzleHttp\Client as GuzzleClient;
+use ManeOlawale\Termii\Client;
 use Psr\Http\Message\ResponseInterface;
 
 class GuzzleManagerInterface implements HttpManagerInterface
 {
+    /**
+     * Termii client
+     * @var \ManeOlawale\Termii\Client
+     */
+    protected $client;
+
+    /**
+     * Guzzle HTTP client
+     * @var \GuzzleHttp\Client
+     */
     protected $guzzle;
 
     /**
@@ -25,8 +36,9 @@ class GuzzleManagerInterface implements HttpManagerInterface
      *
      * @param \GuzzleHttp\Client $guzzle
      */
-    public function __construct(Client $guzzle)
+    public function __construct(Client $client, GuzzleClient $guzzle)
     {
+        $this->client = $client;
         $this->guzzle = $guzzle;
     }
 
