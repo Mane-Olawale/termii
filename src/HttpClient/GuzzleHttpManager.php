@@ -15,7 +15,7 @@ use GuzzleHttp\Client as GuzzleClient;
 use ManeOlawale\Termii\Client;
 use Psr\Http\Message\ResponseInterface;
 
-class GuzzleManagerInterface implements HttpManagerInterface
+class GuzzleHttpManager implements HttpManagerInterface
 {
     /**
      * Termii client

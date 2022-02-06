@@ -12,7 +12,7 @@
 namespace ManeOlawale\Termii;
 
 use GuzzleHttp\Client as Guzzle;
-use ManeOlawale\Termii\HttpClient\GuzzleManagerInterface;
+use ManeOlawale\Termii\HttpClient\GuzzleHttpManager;
 use ManeOlawale\Termii\HttpClient\HttpClientInterface;
 use ManeOlawale\Termii\HttpClient\HttpManagerInterface;
 use ManeOlawale\Termii\HttpClient\SendHttpRequests;
@@ -135,7 +135,7 @@ class Client implements HttpClientInterface
             $this->fillOptions($options);
         }
 
-        $this->httpManager = $httpManager ?? new GuzzleManagerInterface($this, new Guzzle([
+        $this->httpManager = $httpManager ?? new GuzzleHttpManager($this, new Guzzle([
             // Base URI is used with relative requests
             'base_uri' => $this->baseUri(),
             // You can set any number of default request options.
