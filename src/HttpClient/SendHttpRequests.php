@@ -16,7 +16,7 @@ use Psr\Http\Message\ResponseInterface;
 
 trait SendHttpRequests
 {
-    protected $httpClient;
+    protected $httpManager;
 
     /**
      * Return the default header data
@@ -81,7 +81,7 @@ trait SendHttpRequests
     public function request(string $method, string $route, array $data): ResponseInterface
     {
         try {
-            return $this->httpClient->request($method, $route, $data);
+            return $this->httpManager->request($method, $route, $data);
         } catch (BadResponseException $th) {
             if ($th->hasResponse()) {
                 return $th->getResponse();

@@ -12,7 +12,9 @@
 namespace ManeOlawale\Termii;
 
 use GuzzleHttp\Client as Guzzle;
+use ManeOlawale\Termii\HttpClient\GuzzleManagerInterface;
 use ManeOlawale\Termii\HttpClient\HttpClientInterface;
+use ManeOlawale\Termii\HttpClient\HttpManagerInterface;
 use ManeOlawale\Termii\HttpClient\SendHttpRequests;
 
 /**
@@ -125,7 +127,7 @@ class Client implements HttpClientInterface
         //
     ];
 
-    public function __construct(string $key, array $options = null)
+    public function __construct(string $key, array $options = null, HttpManagerInterface $httpManager = null)
     {
         $this->key = $key;
 
@@ -133,12 +135,12 @@ class Client implements HttpClientInterface
             $this->fillOptions($options);
         }
 
-        $this->httpClient = new Guzzle([
+        $this->httpManager = $httpManager ?? new GuzzleManagerInterface(new Guzzle([
             // Base URI is used with relative requests
             'base_uri' => $this->baseUri(),
             // You can set any number of default request options.
             'timeout'  => 10.0,
-        ]);
+        ]));
     }
 
     /**
@@ -233,13 +235,13 @@ class Client implements HttpClientInterface
     /**
      * Get the http client
      *
-     * @since 1.0
+     * @since 1.2
      *
-     * @return string
+     * @return \ManeOlawale\Termii\HttpClient\HttpManagerInterface
      */
-    public function getHttpClient()
+    public function getHttpManager()
     {
-        return $this->httpClient;
+        return $this->httpManager;
     }
 
     /**
