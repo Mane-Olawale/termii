@@ -13,7 +13,6 @@ namespace ManeOlawale\Termii\Api;
 
 class Token extends AbstractApi
 {
-
     /**
      * Send OTP token to a number
      *

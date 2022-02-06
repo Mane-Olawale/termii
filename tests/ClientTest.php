@@ -8,6 +8,7 @@ use ManeOlawale\Termii\Api\Sender;
 use ManeOlawale\Termii\Api\Sms;
 use ManeOlawale\Termii\Api\Token;
 use ManeOlawale\Termii\Api\Insights;
+use ManeOlawale\Termii\HttpClient\GuzzleHttpManager;
 
 class ClientTest extends TestCase
 {
@@ -50,14 +51,36 @@ class ClientTest extends TestCase
         $client = new Client('rtyuikjbvdrtyujhbvdrtyujnhbvcftyhbvcdrtg');
 
         $client->fillOptions([
-            'httpClient' => new Guzzle([
+            'httpManager' => new GuzzleHttpManager($client, new Guzzle([
                 // Base URI is used with relative requests
                 'base_uri' => $client->baseUri(),
                 // You can set any number of default request options.
                 'timeout'  => 10.0,
-            ]),
+            ])),
         ]);
 
-        $this->assertTrue($client->getHttpClient() instanceof Guzzle);
+        $this->assertTrue($client->getHttpManager() instanceof GuzzleHttpManager);
+    }
+
+    /**
+     * Test for handler caching in the client oject
+     */
+    public function testSetHttpMannager()
+    {
+        $client = new Client('rtyuikjbvdrtyujhbvdrtyujnhbvcftyhbvcdrtg');
+
+        $httpManager = $client->getHttpManager();
+
+        $client->fillOptions([
+            'httpManager' => new GuzzleHttpManager($client, new Guzzle([
+                // Base URI is used with relative requests
+                'base_uri' => $client->baseUri(),
+                // You can set any number of default request options.
+                'timeout'  => 10.0,
+            ])),
+        ]);
+
+        $this->assertTrue($client->getHttpManager() instanceof GuzzleHttpManager);
+        $this->assertNotTrue($httpManager === $client->getHttpManager());
     }
 }
