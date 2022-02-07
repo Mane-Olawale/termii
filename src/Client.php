@@ -51,7 +51,7 @@ class Client implements HttpClientInterface
      * Base url of termii api
      * @var string
      */
-    public $url = 'https://termii.com/api/';
+    public $url = 'https://api.ng.termii.com/';
 
     /**
      * User agent for the HTTP client
