@@ -83,4 +83,25 @@ class ClientTest extends TestCase
         $this->assertTrue($client->getHttpManager() instanceof GuzzleHttpManager);
         $this->assertNotTrue($httpManager === $client->getHttpManager());
     }
+
+    /**
+     * Test for handler caching in the client oject
+     */
+    public function testSetHttpMannagerMethod()
+    {
+        $client = new Client('rtyuikjbvdrtyujhbvdrtyujnhbvcftyhbvcdrtg');
+
+        $oldHttpManager = $client->getHttpManager();
+
+        $client->setHttpManager($httpManager = new GuzzleHttpManager($client, new Guzzle([
+                // Base URI is used with relative requests
+                'base_uri' => $client->baseUri(),
+                // You can set any number of default request options.
+                'timeout'  => 10.0,
+            ])));
+
+        $this->assertTrue($client->getHttpManager() instanceof GuzzleHttpManager);
+        $this->assertNotTrue($oldHttpManager === $client->getHttpManager());
+        $this->assertTrue($httpManager === $client->getHttpManager());
+    }
 }
