@@ -417,3 +417,61 @@ Uses [Status](http://developer.termii.com/status/).
     return $client->insights->number('2347041945964');
 
 ```
+
+
+### Http Manager
+
+In some situations where you want to be responsible for handling the http requests that termii Client sends out, write your own http manager. if you do not use any http manager the client will use the bult-in guzzle manager.
+
+```php
+<?php
+
+    namespace ManeOlawale\Termii\HttpClient;
+
+    use Psr\Http\Message\ResponseInterface;
+
+    interface HttpManagerInterface
+    {
+        /**
+         * Handle GET method
+         *
+         * @since 1.2
+         *
+         * @param string $method
+         * @param string $route
+         * @param array $data
+         * @return \Psr\Http\Message\ResponseInterface
+         */
+        public function request(string $method, string $route, array $data): ResponseInterface;
+    }
+
+    class GuzzleHttpManager implements HttpManagerInterface
+    {
+        //
+    }
+
+```
+
+You can set the Http Manager directly through the constructor:
+
+```php
+<?php
+
+    use ManeOlawale\Termii\HttpClient\GuzzleHttpManager;
+
+    $client = new Client('{api_key}', [/* Config */], new GuzzleHttpManager());
+
+```
+
+Set http manager setter method:
+
+```php
+<?php
+
+    use ManeOlawale\Termii\HttpClient\GuzzleHttpManager;
+
+    $client = new Client('{api_key}', [/* Config */]);
+    
+    $client->setHttpManager(new GuzzleHttpManager());
+
+```
