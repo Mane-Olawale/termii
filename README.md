@@ -452,7 +452,7 @@ In some situations where you want to be responsible for handling the http reques
 
 ```
 
-You can set the Http Manager directly through the constructor:
+You can set the Http Manager directly by passing it as the third argument of the client contructor
 
 ```php
 <?php
@@ -463,7 +463,7 @@ You can set the Http Manager directly through the constructor:
 
 ```
 
-Set http manager setter method:
+Set http manager using the setter method:
 
 ```php
 <?php
