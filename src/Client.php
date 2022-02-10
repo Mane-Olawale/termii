@@ -364,6 +364,22 @@ class Client implements HttpClientInterface
     }
 
     /**
+     * Set the httpManager instance
+     *
+     * @since 1.2
+     *
+     * @param \ManeOlawale\Termii\HttpClient\HttpManagerInterface $httpManager
+     *
+     * @return self
+     */
+    public function setHttpManager(HttpManagerInterface $httpManager)
+    {
+        $this->httpManager = $httpManager;
+
+        return $this;
+    }
+
+    /**
      * Get the endpoint handler tag map
      *
      * @since 1.0
