@@ -81,7 +81,7 @@ trait SendHttpRequests
     public function request(string $method, string $route, array $data): ResponseInterface
     {
         try {
-            return $this->httpManager->request($method, $route, $data);
+            return $this->httpManager->request($method, $this->baseUri() . $route, $data);
         } catch (BadResponseException $th) {
             if ($th->hasResponse()) {
                 return $th->getResponse();
