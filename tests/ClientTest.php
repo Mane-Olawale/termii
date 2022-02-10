@@ -52,9 +52,6 @@ class ClientTest extends TestCase
 
         $client->fillOptions([
             'httpManager' => new GuzzleHttpManager($client, new Guzzle([
-                // Base URI is used with relative requests
-                'base_uri' => $client->baseUri(),
-                // You can set any number of default request options.
                 'timeout'  => 10.0,
             ])),
         ]);
@@ -73,9 +70,6 @@ class ClientTest extends TestCase
 
         $client->fillOptions([
             'httpManager' => new GuzzleHttpManager($client, new Guzzle([
-                // Base URI is used with relative requests
-                'base_uri' => $client->baseUri(),
-                // You can set any number of default request options.
                 'timeout'  => 10.0,
             ])),
         ]);
@@ -94,9 +88,6 @@ class ClientTest extends TestCase
         $oldHttpManager = $client->getHttpManager();
 
         $client->setHttpManager($httpManager = new GuzzleHttpManager($client, new Guzzle([
-                // Base URI is used with relative requests
-                'base_uri' => $client->baseUri(),
-                // You can set any number of default request options.
                 'timeout'  => 10.0,
             ])));
 
