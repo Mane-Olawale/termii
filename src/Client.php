@@ -136,9 +136,6 @@ class Client implements HttpClientInterface
         }
 
         $this->httpManager = $httpManager ?? new GuzzleHttpManager($this, new Guzzle([
-            // Base URI is used with relative requests
-            'base_uri' => $this->baseUri(),
-            // You can set any number of default request options.
             'timeout'  => 10.0,
         ]));
     }
