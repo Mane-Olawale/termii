@@ -1,3 +1,14 @@
+<p align="center">
+    <img title="Termii" src="https://termii.com/assets/images/logo.png"/>
+</p>
+
+<p align="center">
+<a href="https://github.com/Mane-Olawale/laravel-termii"><img src="https://github.com/Mane-Olawale/termii/actions/workflows/tests.yml/badge.svg" alt="Github"></a>
+<a href="https://packagist.org/packages/mane-olawale/termii"><img src="https://img.shields.io/packagist/dt/mane-olawale/termii" alt="Total Downloads"></a>
+<a href="https://packagist.org/packages/mane-olawale/termii"><img src="https://img.shields.io/packagist/v/mane-olawale/termii" alt="Latest Stable Version"></a>
+<a href="https://packagist.org/packages/mane-olawale/termii"><img src="https://img.shields.io/packagist/l/mane-olawale/termii" alt="License"></a>
+</p>
+
 # Termii Client
 
 A simple Object Oriented PHP Client for Termii SMS API.
