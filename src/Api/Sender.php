@@ -13,7 +13,6 @@ namespace ManeOlawale\Termii\Api;
 
 use ManeOlawale\Termii\Api\Response\Response;
 use ManeOlawale\Termii\Api\Response\Sender\ListResponse;
-use ManeOlawale\Termii\Api\Response\Sender\RequestResponse;
 
 class Sender extends AbstractApi
 {
@@ -38,7 +37,7 @@ class Sender extends AbstractApi
      * @param string $sender_id
      * @param string $usecase
      * @param string $company
-     * @return RequestResponse
+     * @return Response
      */
     public function request(string $sender_id, string $usecase, string $company): Response
     {
