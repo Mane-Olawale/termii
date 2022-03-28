@@ -13,11 +13,28 @@ class SenderTest extends TestCase
     {
         $client = $this->getClientWithMockedResponse(
             new Response(200, ['Content-Type' => 'application/json'], json_encode($mockedResponse = [
-                //
+                'data' => [
+                    [
+                        'sender_id' => 'Dummy inc',
+                        'status' => 'unblock',
+                        'company' => 'Dummy inc',
+                        'usecase' => null,
+                        'country' => null,
+                        'created_at' => '2021-03-29 16:51:53'
+                    ],
+                    [
+                        'sender_id' => 'ACME Key',
+                        'status' => 'unblock',
+                        'company' => 'ACME',
+                        'usecase' => null,
+                        'country' => null,
+                        'created_at' => '2021-03-29 16:51:53'
+                    ]
+                ]
             ]))
         );
 
-        $this->assertTrue($client->sender->list() == $mockedResponse);
+        $this->assertTrue($client->sender->list()->toArray() == $mockedResponse);
     }
 
     /**
@@ -32,7 +49,7 @@ class SenderTest extends TestCase
         );
 
         $this->assertTrue(
-            $client->sender->request('Olawale', 'Friendship based notification', 'Olawale INC') ==
+            $client->sender->request('Olawale', 'Friendship based notification', 'Olawale INC')->toArray() ==
             $mockedResponse
         );
     }
