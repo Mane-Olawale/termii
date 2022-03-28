@@ -11,6 +11,10 @@
 
 namespace ManeOlawale\Termii\Api;
 
+use ManeOlawale\Termii\Api\Response\Insights\InboxResponse;
+use ManeOlawale\Termii\Api\Response\Insights\SearchResponse;
+use ManeOlawale\Termii\Api\Response\Response;
+
 class Insights extends AbstractApi
 {
     /**
@@ -18,12 +22,12 @@ class Insights extends AbstractApi
      *
      * @since 1.0
      *
-     * @return array
+     * @return Response
      */
-    public function balance()
+    public function balance(): Response
     {
         $response = $this->get('get-balance');
-        return $this->responseArray($response);
+        return $this->response($response);
     }
 
     /**
@@ -31,15 +35,15 @@ class Insights extends AbstractApi
      *
      * @since 1.0
      *
-     * @return array
+     * @return SearchResponse
      */
-    public function search(string $phone_number)
+    public function search(string $phone_number): SearchResponse
     {
         $response = $this->get('check/dnd', [
             'phone_number' => $phone_number,
         ]);
 
-        return $this->responseArray($response);
+        return $this->mapResponse($response, __FUNCTION__);
     }
 
     /**
@@ -78,16 +82,16 @@ class Insights extends AbstractApi
      *
      * @param string $phone_number
      * @param string $country
-     * @return array
+     * @return Response
      */
-    public function number(string $phone_number, string $country = 'NG')
+    public function number(string $phone_number, string $country = 'NG'): Response
     {
         $response = $this->get('insight/number/query', [
             'phone_number' => $phone_number,
             'country_code' => $country,
         ]);
 
-        return $this->responseArray($response);
+        return $this->response($response);
     }
 
     /**
@@ -96,14 +100,14 @@ class Insights extends AbstractApi
      * @since 1.0
      *
      * @param string|null $id
-     * @return array
+     * @return InboxResponse
      */
-    public function inbox(string $id = null)
+    public function inbox(string $id = null): InboxResponse
     {
         $response = $this->get('sms/inbox', $id ? [
             'message_id' => $id,
         ] : []);
 
-        return $this->responseArray($response);
+        return $this->mapResponse($response, __FUNCTION__);
     }
 }

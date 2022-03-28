@@ -17,7 +17,7 @@ class InsightsTest extends TestCase
             ]))
         );
 
-        $this->assertTrue($client->insights->balance() == $mockedResponse);
+        $this->assertTrue($client->insights->balance()->toArray() == $mockedResponse);
     }
 
     /**
@@ -27,13 +27,14 @@ class InsightsTest extends TestCase
     {
         $client = $this->getClientWithMockedResponse(
             new Response(200, ['Content-Type' => 'application/json'], json_encode($mockedResponse = [
-                //
+                'dnd_active' => true
             ]))
         );
 
         $this->assertTrue(
-            $client->insights->search('2348147386362') == $mockedResponse
+            ($res = $client->insights->search('2348147386362'))->toArray() == $mockedResponse
         );
+        $this->assertTrue($res->dnd());
     }
 
     /**
@@ -80,7 +81,7 @@ class InsightsTest extends TestCase
         );
 
         $this->assertTrue(
-            $client->insights->number('2348147386362') == $mockedResponse
+            $client->insights->number('2348147386362')->toArray() == $mockedResponse
         );
     }
 
@@ -89,15 +90,66 @@ class InsightsTest extends TestCase
      */
     public function testInboxCall()
     {
+        $mockedResponse = json_decode($json = '{
+            "data": {
+                "current_page": 1,
+                "data": [
+                    {
+                        "sender": "MAlert",
+                        "receiver": "2348164015051",
+                        "country_code": 234,
+                        "message": "0945 is your phone number Authentication code.",
+                        "amount": 1,
+                        "reroute": 0,
+                        "api_key": "TLkoqbdD2OvAZ2FuOSTFMMuF1KeBh7mDQuUp8BmDB8bcrPqEyDTCpg22tuZANK",
+                        "status": "Delivered",
+                        "sms_type": "plain",
+                        "send_by": "api",
+                        "media_url": null,
+                        "message_id": "5863062722362787045",
+                        "notify_url": "https:\/\/11b1ebadd77a.ngrok.io\/termii\/webhook",
+                        "notify_id": null,
+                        "created_at": "2022-02-22 15:13:44"
+                    },
+                    {
+                        "sender": "MAlert",
+                        "receiver": "2348164015051",
+                        "country_code": 234,
+                        "message": "0945 is your phone number Authentication code.",
+                        "amount": 1,
+                        "reroute": 0,
+                        "api_key": "TLkoqbdD2OvAZ2FuOSTFMMuF1KeBh7mDQuUp8BmDB8bcrPqEyDTCpg22tuZANK",
+                        "status": "Delivered",
+                        "sms_type": "plain",
+                        "send_by": "api",
+                        "media_url": null,
+                        "message_id": "5863062722362787048",
+                        "notify_url": "https:\/\/11b1ebadd77a.ngrok.io\/termii\/webhook",
+                        "notify_id": null,
+                        "created_at": "2022-02-22 15:13:44"
+                    }
+                ],
+                "first_page_url": "http:\/\/api.ng.termii.com\/api\/sms\/inbox?page=1",
+                "from": 1,
+                "last_page": 1,
+                "last_page_url": "http:\/\/api.ng.termii.com\/api\/sms\/inbox?page=1",
+                "next_page_url": null,
+                "path": "http:\/\/api.ng.termii.com\/api\/sms\/inbox",
+                "per_page": 15,
+                "prev_page_url": null,
+                "to": 1,
+                "total": 1
+            }
+        }', true);
+
         $client = $this->getClientWithMockedResponse(
-            new Response(200, ['Content-Type' => 'application/json'], json_encode($mockedResponse = [
-                //
-            ]))
+            new Response(200, ['Content-Type' => 'application/json'], $json)
         );
 
         $this->assertTrue(
-            $client->insights->inbox() == $mockedResponse
+            ($res = $client->insights->inbox())->toArray() == $mockedResponse
         );
+        $this->assertSame(2, count($res));
     }
 
     /**
@@ -105,14 +157,48 @@ class InsightsTest extends TestCase
      */
     public function testInboxCallWithMessageId()
     {
+        $mockedResponse = json_decode($json = '{
+            "data": {
+                "current_page": 1,
+                "data": [
+                    {
+                        "sender": "MAlert",
+                        "receiver": "2348164015051",
+                        "country_code": 234,
+                        "message": "0945 is your phone number Authentication code.",
+                        "amount": 1,
+                        "reroute": 0,
+                        "api_key": "TLkoqbdD2OvAZ2FuOSTFMMuF1KeBh7mDQuUp8BmDB8bcrPqEyDTCpg22tuZANK",
+                        "status": "Delivered",
+                        "sms_type": "plain",
+                        "send_by": "api",
+                        "media_url": null,
+                        "message_id": "5863062722362787048",
+                        "notify_url": "https:\/\/11b1ebadd77a.ngrok.io\/termii\/webhook",
+                        "notify_id": null,
+                        "created_at": "2022-02-22 15:13:44"
+                    }
+                ],
+                "first_page_url": "http:\/\/api.ng.termii.com\/api\/sms\/inbox?page=1",
+                "from": 1,
+                "last_page": 1,
+                "last_page_url": "http:\/\/api.ng.termii.com\/api\/sms\/inbox?page=1",
+                "next_page_url": null,
+                "path": "http:\/\/api.ng.termii.com\/api\/sms\/inbox",
+                "per_page": 15,
+                "prev_page_url": null,
+                "to": 1,
+                "total": 1
+            }
+        }', true);
+
         $client = $this->getClientWithMockedResponse(
-            new Response(200, ['Content-Type' => 'application/json'], json_encode($mockedResponse = [
-                //
-            ]))
+            new Response(200, ['Content-Type' => 'application/json'], $json)
         );
 
         $this->assertTrue(
-            $client->insights->inbox('2348147386362') == $mockedResponse
+            ($res =  $client->insights->inbox('5863062722362787048'))->toArray() == $mockedResponse
         );
+        $this->assertSame(1, count($res));
     }
 }
