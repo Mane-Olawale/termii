@@ -46,6 +46,7 @@ class Insights extends AbstractApi
      * Verify if phone number is DND active
      *
      * @since 1.0
+     * @deprecated 1.3 this functions will not be available in the next version 2.0 and => 1.6
      *
      * @param string $phone_number
      * @return boolean
@@ -60,6 +61,7 @@ class Insights extends AbstractApi
      * Verify if phone number is not DND active
      *
      * @since 1.0
+     * @deprecated 1.3 this functions will not be available in the next version 2.0 and => 1.6
      *
      * @param string $phone_number
      * @return boolean
