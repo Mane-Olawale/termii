@@ -97,13 +97,13 @@ class AbstractApi
                     substr(strrchr(get_class($this), "\\"), 1) .
                     '\\' . ucfirst($function) . 'Response';
 
-        return new $class(
+        return $this->addClient(new $class(
             $response->getStatusCode(),
             $response->getHeaders(),
             $response->getBody(),
             $response->getProtocolVersion(),
             $response->getReasonPhrase()
-        );
+        ));
     }
 
     /**
@@ -117,12 +117,22 @@ class AbstractApi
     public function response(Response $response): TermiiResponse
     {
 
-        return new TermiiResponse(
+        return $this->addClient(new TermiiResponse(
             $response->getStatusCode(),
             $response->getHeaders(),
             $response->getBody(),
             $response->getProtocolVersion(),
             $response->getReasonPhrase()
-        );
+        ));
+    }
+
+    /**
+     * Add client to response
+     *
+     * @param $response
+     */
+    public function addClient($response)
+    {
+        return $response->setClient($this->client);
     }
 }
