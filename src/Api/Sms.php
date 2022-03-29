@@ -12,6 +12,7 @@
 namespace ManeOlawale\Termii\Api;
 
 use ManeOlawale\Termii\Api\Response\Response;
+use ManeOlawale\Termii\Api\Response\Sms\SendResponse;
 
 class Sms extends AbstractApi
 {
@@ -24,10 +25,10 @@ class Sms extends AbstractApi
      * @param string $text
      * @param string $sender_id
      * @param string $channel
-     * @return Response
+     * @return SendResponse
      * @throws \Exception
      */
-    public function send($to, string $text, string $sender_id = null, string $channel = null): Response
+    public function send($to, string $text, string $sender_id = null, string $channel = null): SendResponse
     {
         if (!$this->client->getSenderId() && !$sender_id) {
             throw new \Exception('Termii client doesn`t have a default Sender ID');
@@ -45,7 +46,7 @@ class Sms extends AbstractApi
             'channel' => $channel ?? $this->client->getChannel(),
         ]);
 
-        return $this->response($response);
+        return $this->mapResponse($response, __FUNCTION__);
     }
 
     /**
