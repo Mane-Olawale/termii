@@ -2,9 +2,9 @@
 
 namespace ManeOlawale\Termii\Api\Response\Insights;
 
-use ManeOlawale\RestResponse\AbstractListResponse;
+use ManeOlawale\Termii\Api\Response\ListResponse;
 
-class InboxResponse extends AbstractListResponse
+class InboxResponse extends ListResponse
 {
     /**
      * @inheritDoc

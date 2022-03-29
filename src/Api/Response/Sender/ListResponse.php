@@ -2,9 +2,9 @@
 
 namespace ManeOlawale\Termii\Api\Response\Sender;
 
-use ManeOlawale\RestResponse\AbstractListResponse;
+use ManeOlawale\Termii\Api\Response\ListResponse as BaseListResponse;
 
-class ListResponse extends AbstractListResponse
+class ListResponse extends BaseListResponse
 {
     /**
      * @inheritDoc

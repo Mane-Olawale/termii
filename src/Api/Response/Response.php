@@ -6,5 +6,5 @@ use ManeOlawale\RestResponse\AbstractResponse;
 
 class Response extends AbstractResponse
 {
-    //
+    use ResponseTrait;
 }

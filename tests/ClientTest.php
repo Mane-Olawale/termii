@@ -8,6 +8,8 @@ use ManeOlawale\Termii\Api\Sender;
 use ManeOlawale\Termii\Api\Sms;
 use ManeOlawale\Termii\Api\Token;
 use ManeOlawale\Termii\Api\Insights;
+use ManeOlawale\Termii\Api\Response\Response;
+use ManeOlawale\Termii\Api\Response\Sender\ListResponse;
 use ManeOlawale\Termii\HttpClient\GuzzleHttpManager;
 
 class ClientTest extends TestCase
@@ -94,5 +96,19 @@ class ClientTest extends TestCase
         $this->assertTrue($client->getHttpManager() instanceof GuzzleHttpManager);
         $this->assertNotTrue($oldHttpManager === $client->getHttpManager());
         $this->assertTrue($httpManager === $client->getHttpManager());
+    }
+
+    public function testClientHelperOnResponse()
+    {
+        $client = new Client('rtyuikjbvdrtyujhbvdrtyujnhbvcftyhbvcdrtg');
+        $response = new Response(200, ['Content-Type' => 'application/json'], '{}');
+
+        $this->assertInstanceOf(Response::class, $response->setClient($client));
+        $this->assertInstanceOf(Client::class, $response->getClient());
+
+        $response = new ListResponse(200, ['Content-Type' => 'application/json'], '{}');
+
+        $this->assertInstanceOf(ListResponse::class, $response->setClient($client));
+        $this->assertInstanceOf(Client::class, $response->getClient());
     }
 }
