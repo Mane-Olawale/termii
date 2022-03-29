@@ -11,6 +11,9 @@
 
 namespace ManeOlawale\Termii\Api;
 
+use ManeOlawale\Termii\Api\Response\Response;
+use ManeOlawale\Termii\Api\Response\Sms\SendResponse;
+
 class Sms extends AbstractApi
 {
     /**
@@ -22,10 +25,10 @@ class Sms extends AbstractApi
      * @param string $text
      * @param string $sender_id
      * @param string $channel
-     * @return array
+     * @return SendResponse
      * @throws \Exception
      */
-    public function send($to, string $text, string $sender_id = null, string $channel = null)
+    public function send($to, string $text, string $sender_id = null, string $channel = null): SendResponse
     {
         if (!$this->client->getSenderId() && !$sender_id) {
             throw new \Exception('Termii client doesn`t have a default Sender ID');
@@ -43,7 +46,7 @@ class Sms extends AbstractApi
             'channel' => $channel ?? $this->client->getChannel(),
         ]);
 
-        return $this->responseArray($response);
+        return $this->mapResponse($response, __FUNCTION__);
     }
 
     /**
@@ -53,16 +56,16 @@ class Sms extends AbstractApi
      *
      * @param string|array $to
      * @param string $text
-     * @return array
+     * @return Response
      */
-    public function number($to, string $text)
+    public function number($to, string $text): Response
     {
         $response = $this->post('sms/number/send', [
             'to' => $to,
             'sms' => $text,
         ]);
 
-        return $this->responseArray($response);
+        return $this->response($response);
     }
 
     /**
@@ -74,9 +77,9 @@ class Sms extends AbstractApi
      * @param string $template_id
      * @param array $data
      * @param string $device_id
-     * @return array
+     * @return Response
      */
-    public function template(string $phone_number, string $template_id, array $data, string $device_id = null)
+    public function template(string $phone_number, string $template_id, array $data, string $device_id = null): Response
     {
         $extra = ($device_id) ? [
             'device_id' => $device_id,
@@ -88,6 +91,6 @@ class Sms extends AbstractApi
             'data' => $data
         ] + $extra);
 
-        return $this->responseArray($response);
+        return $this->response($response);
     }
 }

@@ -11,6 +11,9 @@
 
 namespace ManeOlawale\Termii\Api;
 
+use ManeOlawale\Termii\Api\Response\Response;
+use ManeOlawale\Termii\Api\Response\Token\VerifyResponse;
+
 class Token extends AbstractApi
 {
     /**
@@ -24,7 +27,7 @@ class Token extends AbstractApi
      * @param string $from
      * @param string $channel
      * @param string $message_type
-     * @return array
+     * @return Response
      */
     public function sendToken(
         string $to,
@@ -33,7 +36,7 @@ class Token extends AbstractApi
         string $from = null,
         string $channel = null,
         string $message_type = null
-    ) {
+    ): Response {
         if (!$this->client->getSenderId() && !$from) {
             throw new \Exception('Termii client doesn`t have a default Sender ID');
         }
@@ -54,7 +57,7 @@ class Token extends AbstractApi
             'channel' => $channel ?? $this->client->getChannel(),
         ]);
 
-        return $this->responseArray($response);
+        return $this->response($response);
     }
 
     /**
@@ -64,28 +67,29 @@ class Token extends AbstractApi
      *
      * @param string $pin_id
      * @param string $pin
-     * @return array
+     * @return VerifyResponse
      */
-    public function verify(string $pin_id, string $pin)
+    public function verify(string $pin_id, string $pin): VerifyResponse
     {
         $response = $this->post('sms/otp/verify', [
             'pin_id' => $pin_id,
             'pin' => $pin,
         ]);
 
-        return $this->responseArray($response);
+        return $this->mapResponse($response, __FUNCTION__);
     }
 
     /**
      * Verify an OTP against a pin id
      *
      * @since 1.0
+     * @deprecated 1.3 this functions will not be available in the next version 2.0 and => 1.6
      *
      * @param string $pin_id
      * @param string $pin
      * @return boolean
      */
-    public function verified(string $pin_id, string $pin)
+    public function verified(string $pin_id, string $pin): bool
     {
         $array = $this->verify($pin_id, $pin);
         return (isset($array['verified']) && $array['verified'] === true);
@@ -95,12 +99,13 @@ class Token extends AbstractApi
      * Verify an OTP against a pin id if expired
      *
      * @since 1.0
+     * @deprecated 1.3 this functions will not be available in the next version 2.0 and => 1.6
      *
      * @param string $pin_id
      * @param string $pin
      * @return boolean
      */
-    public function expired(string $pin_id, string $pin)
+    public function expired(string $pin_id, string $pin): bool
     {
         $array = $this->verify($pin_id, $pin);
         return (isset($array['verified']) && $array['verified'] === 'Expired');
@@ -110,15 +115,16 @@ class Token extends AbstractApi
      * Verify an OTP against a pin id if failed
      *
      * @since 1.0
+     * @deprecated 1.3 this functions will not be available in the next version 2.0 and => 1.6
      *
      * @param string $pin_id
      * @param string $pin
      * @return boolean
      */
-    public function failed(string $pin_id, string $pin)
+    public function failed(string $pin_id, string $pin): bool
     {
         $array = $this->verify($pin_id, $pin);
-        return (!isset($array['verified']) && isset($array['pinId']));
+        return (!isset($array['verified']) && $array['verified'] === true);
     }
 
     /**
@@ -128,9 +134,9 @@ class Token extends AbstractApi
      *
      * @param string|array $phone_number
      * @param array $pin
-     * @return array
+     * @return Response
      */
-    public function sendInAppToken(string $phone_number, array $pin)
+    public function sendInAppToken(string $phone_number, array $pin): Response
     {
         $response = $this->post('sms/otp/generate', [
             'phone_number' => $phone_number,
@@ -140,6 +146,6 @@ class Token extends AbstractApi
             'pin_type' => $pin['type'] ?? $this->client->getPinType(),
         ]);
 
-        return $this->responseArray($response);
+        return $this->response($response);
     }
 }

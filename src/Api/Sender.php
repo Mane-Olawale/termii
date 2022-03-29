@@ -11,6 +11,9 @@
 
 namespace ManeOlawale\Termii\Api;
 
+use ManeOlawale\Termii\Api\Response\Response;
+use ManeOlawale\Termii\Api\Response\Sender\ListResponse;
+
 class Sender extends AbstractApi
 {
     /**
@@ -18,12 +21,12 @@ class Sender extends AbstractApi
      *
      * @since 1.0
      *
-     * @return array
+     * @return ListResponse
      */
-    public function list()
+    public function list(): ListResponse
     {
         $response = $this->get('sender-id');
-        return $this->responseArray($response);
+        return $this->mapResponse($response, __FUNCTION__);
     }
 
     /**
@@ -34,9 +37,9 @@ class Sender extends AbstractApi
      * @param string $sender_id
      * @param string $usecase
      * @param string $company
-     * @return array
+     * @return Response
      */
-    public function request(string $sender_id, string $usecase, string $company)
+    public function request(string $sender_id, string $usecase, string $company): Response
     {
         $response = $this->post('sender-id/request', [
             'sender_id' => $sender_id,
@@ -44,6 +47,6 @@ class Sender extends AbstractApi
             'company' => $company,
         ]);
 
-        return $this->responseArray($response);
+        return $this->response($response);
     }
 }

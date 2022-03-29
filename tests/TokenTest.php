@@ -24,7 +24,7 @@ class TokenTest extends TestCase
             "length" => 6,
             "placeholder" => '{token}',
             'type' => 'ALPHANUMERIC',
-        ], 'Olawale', 'generic') == $mockedResponse);
+        ], 'Olawale', 'generic')->toArray() == $mockedResponse);
     }
 
     /**
@@ -41,13 +41,13 @@ class TokenTest extends TestCase
             ]))
         );
 
-        $this->assertTrue($client->token->sendToken('2348147386362', '{token} if your verification token', [
+        $client->token->sendToken('2348147386362', '{token} if your verification token', [
             "attempts" => 10,
             "time_to_live" => 30,
             "length" => 6,
             "placeholder" => '{token}',
             'type' => 'ALPHANUMERIC',
-        ], null, 'generic') == $mockedResponse);
+        ], null, 'generic');
     }
 
     /**
@@ -64,13 +64,13 @@ class TokenTest extends TestCase
             ]))
         );
 
-        $this->assertTrue($client->token->sendToken('2348147386362', '{token} if your verification token', [
+        $client->token->sendToken('2348147386362', '{token} if your verification token', [
             "attempts" => 10,
             "time_to_live" => 30,
             "length" => 6,
             "placeholder" => '{token}',
             'type' => 'ALPHANUMERIC',
-        ], 'Olawale') == $mockedResponse);
+        ], 'Olawale');
     }
 
     /**
@@ -80,14 +80,85 @@ class TokenTest extends TestCase
     {
         $client = $this->getClientWithMockedResponse(
             new Response(200, ['Content-Type' => 'application/json'], json_encode($mockedResponse = [
-                //
+                'verified' => true
             ]))
         );
 
         $this->assertTrue(
-            $client->token->verify('bvkjbjbtrhvjtrhvkjrhtjvhbrsjhvfsrgfv', '123456') ==
+            ($res = $client->token->verify('bvkjbjbtrhvjtrhvkjrhtjvhbrsjhvfsrgfv', '123456'))->toArray() ==
             $mockedResponse
         );
+
+        $verified = false;
+        $res->onVerified(function ($res) use (&$verified) {
+            $verified = true;
+        });
+        $this->assertTrue($verified);
+    }
+
+    /**
+     * Test for request method call
+     */
+    public function testVerifyFailed()
+    {
+        $client = $this->getClientWithMockedResponse(
+            new Response(200, ['Content-Type' => 'application/json'], json_encode($mockedResponse = [
+                'verified' => false
+            ]))
+        );
+
+        $this->assertTrue(
+            ($res = $client->token->verify('bvkjbjbtrhvjtrhvkjrhtjvhbrsjhvfsrgfv', '123456'))->toArray() ==
+            $mockedResponse
+        );
+
+        $verified = false;
+        $res->onFailed(function ($res) use (&$verified) {
+            $verified = true;
+        });
+        $this->assertTrue($verified);
+    }
+
+    /**
+     * Test for request method call
+     */
+    public function testVerifyExpired()
+    {
+        $client = $this->getClientWithMockedResponse(
+            new Response(400, ['Content-Type' => 'application/json'], json_encode($mockedResponse = [
+                'verified' => 'Expired'
+            ]))
+        );
+
+        $this->assertTrue(
+            ($res = $client->token->verify('bvkjbjbtrhvjtrhvkjrhtjvhbrsjhvfsrgfv', '123456'))->toArray() ==
+            $mockedResponse
+        );
+
+        $verified = false;
+        $res->onExpired(function ($res) use (&$verified) {
+            $verified = true;
+        });
+        $this->assertTrue($verified);
+    }
+
+    /**
+     * Test for request method call
+     */
+    public function testVerifyNotFound()
+    {
+        $client = $this->getClientWithMockedResponse(
+            new Response(422, ['Content-Type' => 'application/json'], json_encode($mockedResponse = [
+                'errors' => []
+            ]))
+        );
+
+        $this->assertTrue(
+            ($res = $client->token->verify('bvkjbjbtrhvjtrhvkjrhtjvhbrsjhvfsrgfv', '123456'))->toArray() ==
+            $mockedResponse
+        );
+
+        $this->assertTrue($res->notFound());
     }
 
     /**
@@ -106,7 +177,7 @@ class TokenTest extends TestCase
                 "attempts" => 10,
                 "time_to_live" => 30,
                 "length" => 6,
-            ]) == $mockedResponse
+            ])->toArray() == $mockedResponse
         );
     }
 }

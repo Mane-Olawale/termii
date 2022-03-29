@@ -11,6 +11,9 @@
 
 namespace ManeOlawale\Termii\Api;
 
+use GuzzleHttp\Psr7\Response;
+use ManeOlawale\RestResponse\AbstractResponse;
+use ManeOlawale\Termii\Api\Response\Response as TermiiResponse;
 use ManeOlawale\Termii\Client;
 use Psr\Http\Message\ResponseInterface;
 
@@ -71,12 +74,65 @@ class AbstractApi
     {
         $body = $response->getBody()->__toString();
         if (strpos($response->getHeaderLine('Content-Type'), 'application/json') === 0) {
-            $content = json_decode($body, true);
+            $content = @json_decode($body, true);
             if (JSON_ERROR_NONE === json_last_error()) {
                 return $content;
             }
         }
 
         return $body;
+    }
+
+    /**
+     * Change a response instance to array
+     *
+     * @since 1.3
+     *
+     * @param ResponseInterface $response
+     * @return \ManeOlawale\RestResponse\AbstractResponse
+     */
+    public function mapResponse(Response $response, string $function): AbstractResponse
+    {
+        $class = '\\ManeOlawale\\Termii\\Api\\Response\\' .
+                    substr(strrchr(get_class($this), "\\"), 1) .
+                    '\\' . ucfirst($function) . 'Response';
+
+        return $this->addClient(new $class(
+            $response->getStatusCode(),
+            $response->getHeaders(),
+            $response->getBody(),
+            $response->getProtocolVersion(),
+            $response->getReasonPhrase()
+        ));
+    }
+
+    /**
+     * Change a response instance to array
+     *
+     * @since 1.3
+     *
+     * @param ResponseInterface $response
+     * @return \ManeOlawale\Termii\Api\Response\Response
+     */
+    public function response(Response $response): TermiiResponse
+    {
+
+        return $this->addClient(new TermiiResponse(
+            $response->getStatusCode(),
+            $response->getHeaders(),
+            $response->getBody(),
+            $response->getProtocolVersion(),
+            $response->getReasonPhrase()
+        ));
+    }
+
+    /**
+     * Add client to response
+     *
+     * @param $response
+     */
+    public function addClient($response)
+    {
+        return $response->setClient($this->client);
     }
 }

@@ -17,7 +17,8 @@
     ],
 	"require": {
 		"php": ">=7.2",
-        "guzzlehttp/guzzle": "~6|~7"
+        "guzzlehttp/guzzle": "~6|~7",
+        "mane-olawale/rest-response": "^0.1.0"
 	},
     "scripts": {
         "tests": "vendor/bin/phpunit --verbose"

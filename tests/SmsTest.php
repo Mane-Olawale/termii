@@ -4,6 +4,7 @@ namespace ManeOlawale\Termii\Tests;
 
 use GuzzleHttp\Psr7\Response;
 use Exception;
+use ManeOlawale\Termii\Api\Response\Insights\InboxResponse;
 
 class SmsTest extends TestCase
 {
@@ -18,7 +19,10 @@ class SmsTest extends TestCase
             ]))
         );
 
-        $this->assertTrue($client->sms->number('2347041945964', 'Lotus give me my phone') == $mockedResponse);
+        $this->assertTrue(
+            $client->sms->number('2347041945964', 'Lotus give me my phone')->toArray() ==
+            $mockedResponse
+        );
     }
 
     /**
@@ -28,14 +32,16 @@ class SmsTest extends TestCase
     {
         $client = $this->getClientWithMockedResponse(
             new Response(200, ['Content-Type' => 'application/json'], json_encode($mockedResponse = [
-                //
+                'message_id' => '597363836283389234'
             ]))
         );
 
         $this->assertTrue(
-            $client->sms->send('2347041945964', 'Lotus give me my phone', 'Olawale', 'generic') ==
+            ($res = $client->sms->send('2347041945964', 'Lotus give me my phone', 'Olawale', 'generic'))->toArray() ==
             $mockedResponse
         );
+
+        $this->assertInstanceOf(InboxResponse::class, $res->message());
     }
 
     /**
@@ -90,7 +96,7 @@ class SmsTest extends TestCase
         );
 
         $this->assertTrue(
-            $client->sms->template('2347041945964', '1493-csdn3-ns34w-sd3434-dfdf', [], 'Olawale') ==
+            $client->sms->template('2347041945964', '1493-csdn3-ns34w-sd3434-dfdf', [], 'Olawale')->toArray() ==
             $mockedResponse
         );
     }

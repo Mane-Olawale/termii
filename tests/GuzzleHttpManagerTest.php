@@ -15,7 +15,7 @@ class GuzzleHttpManagerTest extends TestCase
     public function testRequestCall()
     {
         /**
-         * @var \Mockery|\ManeOlawale\Termii\HttpClient\GuzzleHttpManager
+         * @var \Mockery\MockInterface|\ManeOlawale\Termii\HttpClient\GuzzleHttpManager
          */
         $mock = \Mockery::mock(GuzzleHttpManager::class);
 
@@ -30,7 +30,10 @@ class GuzzleHttpManagerTest extends TestCase
             ])),
         ]);
 
-        $this->assertTrue($client->sms->number('2347041945964', 'Lotus give me my phone') == $mockedResponse);
+        $this->assertTrue(
+            $client->sms->number('2347041945964', 'Lotus give me my phone')->toArray() ==
+            $mockedResponse
+        );
     }
 
     /**
@@ -58,6 +61,9 @@ class GuzzleHttpManagerTest extends TestCase
             ])),
         ]);
 
-        $this->assertTrue($client->sms->number('2347041945964', 'Lotus give me my phone') == $mockedResponse);
+        $this->assertTrue(
+            $client->sms->number('2347041945964', 'Lotus give me my phone')->toArray() ==
+            $mockedResponse
+        );
     }
 }
