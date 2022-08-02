@@ -112,7 +112,7 @@ class Webhook
      */
     public static function resetloader()
     {
-        unset(static::$loader);
+        static::$loader = null;
     }
 
     /**
@@ -122,11 +122,11 @@ class Webhook
      */
     public function reset()
     {
-        unset($this->raw);
-        unset($this->object);
-        unset($this->event);
-        unset($this->data);
-        unset($this->signature);
+        $this->raw = null;
+        $this->object = null;
+        $this->event = null;
+        $this->data = null;
+        $this->signature = null;
 
         return $this;
     }
