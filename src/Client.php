@@ -60,10 +60,16 @@ class Client implements HttpClientInterface
     protected $userAgent = 'Termii Library: mane-olawale/termii';
 
     /**
-     * Secret Key for Termii api
+     * Api Key for Termii api
      * @var string
      */
     protected $key;
+
+    /**
+     * Secret Key for Termii api
+     * @var string
+     */
+    protected $secret_key;
 
     /**
      * The default sender id used by the Termii Client
@@ -227,6 +233,18 @@ class Client implements HttpClientInterface
     public function getKey()
     {
         return $this->key;
+    }
+
+    /**
+     * Get the Secret key of the client
+     *
+     * @since 1.0
+     *
+     * @return string
+     */
+    public function getSecretKey()
+    {
+        return $this->secret_key;
     }
 
     /**

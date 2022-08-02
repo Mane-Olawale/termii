@@ -30,6 +30,7 @@ class TestCase extends BaseTestCase
 
         $client->fillOptions([
             'httpManager' => new GuzzleHttpManager($client, $mock),
+            'secret_key' => 'termii',
         ]);
 
         $mock->shouldReceive([
