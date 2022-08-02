@@ -118,12 +118,12 @@ $response->onError(function ($response) {
 
 ```
 
-You can still treat the response like array
+You can still treat the response as array
 ```php
 $message_id = $response['message_id'];
 ```
 
-You can use foreach directly on list responses
+You can use foreach directly on list responses e.g `history`, `sender list` etc.
 ```php
 <?php
 
@@ -133,7 +133,7 @@ foreach ($response as $sender) {
 
 ```
 
-> **Note:** There are more helper methods to the response. Check out the full documentation [here](https://github.com/Mane-Olawale/rest-response).
+> **Note** There are more helper methods to the response. Check out the full documentation [here](https://github.com/Mane-Olawale/rest-response).
 
 ## Sender
 
@@ -154,7 +154,7 @@ $client = new Client('{api_key}');
 $client->sender->list();
 
 ```
-> **Note:** We didn`t add the Sender id and channel becuase they are optional and they can always be passed later on the client object or the SMS API handler.
+> **Note** We didn`t add the Sender id and channel becuase they are optional and they can always be passed later on the client object or the SMS API handler.
 
 
 ### Request Sender ID
